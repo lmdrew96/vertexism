@@ -1,0 +1,234 @@
+.svg {
+  width: 600px;
+  height: 340px;
+}
+
+.dot {
+  fill: var(--adhd-purple);
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.edge {
+  stroke: var(--adhd-purple);
+  stroke-width: 2;
+  fill: none;
+  stroke-dasharray: 80;
+  stroke-dashoffset: 80;
+  opacity: 0;
+}
+
+.halo {
+  fill: none;
+  stroke: var(--adhd-amber);
+  stroke-width: 1;
+  opacity: 0;
+}
+
+.playing .dotA {
+  animation: orbitA 5.5s linear 0.2s forwards;
+}
+.playing .dotB {
+  animation: orbitB 5.5s linear 0.2s forwards;
+}
+.playing .edge {
+  animation: drawEdge 0.44s linear 4.27s forwards;
+}
+.playing .halo {
+  animation: haloPulse 2.4s ease-out 4.27s forwards;
+}
+.playing .caption {
+  animation: captionIn 0.8s ease 5s forwards;
+}
+.playing .replay {
+  animation: captionIn 0.5s ease 5.9s forwards;
+}
+
+@keyframes orbitA {
+  0%     { opacity: 0; transform: translate(-80px, 0) scale(0.4); }
+  5%     { opacity: 0; transform: translate(-80px, 0) scale(0.4); }
+  9%     { opacity: 1; transform: translate(-80px, 0) scale(1.15); }
+  12.00% { transform: translate(-80.00px, 0.00px) scale(1); }
+  13.54% { transform: translate(-75.68px, -18.65px) scale(1); }
+  15.08% { transform: translate(-67.20px, -35.27px) scale(1); }
+  16.62% { transform: translate(-55.27px, -48.97px) scale(1); }
+  18.15% { transform: translate(-40.78px, -59.09px) scale(1); }
+  19.69% { transform: translate(-24.73px, -65.21px) scale(1); }
+  21.23% { transform: translate(-8.16px, -67.20px) scale(1); }
+  22.77% { transform: translate(7.91px, -65.16px) scale(1); }
+  24.31% { transform: translate(22.55px, -59.46px) scale(1); }
+  25.85% { transform: translate(34.96px, -50.65px) scale(1); }
+  27.38% { transform: translate(44.53px, -39.45px) scale(1); }
+  28.92% { transform: translate(50.86px, -26.69px) scale(1); }
+  30.46% { transform: translate(53.78px, -13.25px) scale(1); }
+  32.00% { transform: translate(53.33px, 0.00px) scale(1); }
+  33.54% { transform: translate(49.79px, 12.27px) scale(1); }
+  35.08% { transform: translate(43.59px, 22.88px) scale(1); }
+  36.62% { transform: translate(35.31px, 31.29px) scale(1); }
+  38.15% { transform: translate(25.64px, 37.14px) scale(1); }
+  39.69% { transform: translate(15.28px, 40.28px) scale(1); }
+  41.23% { transform: translate(4.95px, 40.73px) scale(1); }
+  42.77% { transform: translate(-4.70px, 38.69px) scale(1); }
+  44.31% { transform: translate(-13.09px, 34.52px) scale(1); }
+  45.85% { transform: translate(-19.81px, 28.70px) scale(1); }
+  47.38% { transform: translate(-24.57px, 21.76px) scale(1); }
+  48.92% { transform: translate(-27.24px, 14.30px) scale(1); }
+  50.46% { transform: translate(-27.88px, 6.87px) scale(1); }
+  52.00% { transform: translate(-26.67px, 0.00px) scale(1); }
+  53.54% { transform: translate(-23.90px, -5.89px) scale(1); }
+  55.08% { transform: translate(-19.98px, -10.49px) scale(1); }
+  56.62% { transform: translate(-15.35px, -13.60px) scale(1); }
+  58.15% { transform: translate(-10.49px, -15.19px) scale(1); }
+  59.69% { transform: translate(-5.82px, -15.34px) scale(1); }
+  61.23% { transform: translate(-1.73px, -14.25px) scale(1); }
+  62.77% { transform: translate(1.48px, -12.22px) scale(1); }
+  64.31% { transform: translate(3.64px, -9.59px) scale(1); }
+  65.85% { transform: translate(4.66px, -6.75px) scale(1); }
+  67.38% { transform: translate(4.61px, -4.08px) scale(1); }
+  68.92% { transform: translate(3.63px, -1.91px) scale(1); }
+  70.46% { transform: translate(1.99px, -0.49px) scale(1); }
+  72.00% { transform: translate(0.00px, 0.00px) scale(1); }
+  74%    { transform: translate(0, 0) scale(1.25); }
+  82%    { transform: translate(-92px, 0) scale(1); }
+  87%    { transform: translate(-80px, 0) scale(1); }
+  100%   { opacity: 1; transform: translate(-80px, 0) scale(1); }
+}
+
+@keyframes orbitB {
+  0%     { opacity: 0; transform: translate(80px, 0) scale(0.4); }
+  5%     { opacity: 0; transform: translate(80px, 0) scale(0.4); }
+  9%     { opacity: 1; transform: translate(80px, 0) scale(1.15); }
+  12.00% { transform: translate(80.00px, 0.00px) scale(1); }
+  13.54% { transform: translate(75.68px, 18.65px) scale(1); }
+  15.08% { transform: translate(67.20px, 35.27px) scale(1); }
+  16.62% { transform: translate(55.27px, 48.97px) scale(1); }
+  18.15% { transform: translate(40.78px, 59.09px) scale(1); }
+  19.69% { transform: translate(24.73px, 65.21px) scale(1); }
+  21.23% { transform: translate(8.16px, 67.20px) scale(1); }
+  22.77% { transform: translate(-7.91px, 65.16px) scale(1); }
+  24.31% { transform: translate(-22.55px, 59.46px) scale(1); }
+  25.85% { transform: translate(-34.96px, 50.65px) scale(1); }
+  27.38% { transform: translate(-44.53px, 39.45px) scale(1); }
+  28.92% { transform: translate(-50.86px, 26.69px) scale(1); }
+  30.46% { transform: translate(-53.78px, 13.25px) scale(1); }
+  32.00% { transform: translate(-53.33px, 0.00px) scale(1); }
+  33.54% { transform: translate(-49.79px, -12.27px) scale(1); }
+  35.08% { transform: translate(-43.59px, -22.88px) scale(1); }
+  36.62% { transform: translate(-35.31px, -31.29px) scale(1); }
+  38.15% { transform: translate(-25.64px, -37.14px) scale(1); }
+  39.69% { transform: translate(-15.28px, -40.28px) scale(1); }
+  41.23% { transform: translate(-4.95px, -40.73px) scale(1); }
+  42.77% { transform: translate(4.70px, -38.69px) scale(1); }
+  44.31% { transform: translate(13.09px, -34.52px) scale(1); }
+  45.85% { transform: translate(19.81px, -28.70px) scale(1); }
+  47.38% { transform: translate(24.57px, -21.76px) scale(1); }
+  48.92% { transform: translate(27.24px, -14.30px) scale(1); }
+  50.46% { transform: translate(27.88px, -6.87px) scale(1); }
+  52.00% { transform: translate(26.67px, 0.00px) scale(1); }
+  53.54% { transform: translate(23.90px, 5.89px) scale(1); }
+  55.08% { transform: translate(19.98px, 10.49px) scale(1); }
+  56.62% { transform: translate(15.35px, 13.60px) scale(1); }
+  58.15% { transform: translate(10.49px, 15.19px) scale(1); }
+  59.69% { transform: translate(5.82px, 15.34px) scale(1); }
+  61.23% { transform: translate(1.73px, 14.25px) scale(1); }
+  62.77% { transform: translate(-1.48px, 12.22px) scale(1); }
+  64.31% { transform: translate(-3.64px, 9.59px) scale(1); }
+  65.85% { transform: translate(-4.66px, 6.75px) scale(1); }
+  67.38% { transform: translate(-4.61px, 4.08px) scale(1); }
+  68.92% { transform: translate(-3.63px, 1.91px) scale(1); }
+  70.46% { transform: translate(-1.99px, 0.49px) scale(1); }
+  72.00% { transform: translate(0.00px, 0.00px) scale(1); }
+  74%    { transform: translate(0, 0) scale(1.25); }
+  82%    { transform: translate(92px, 0) scale(1); }
+  87%    { transform: translate(80px, 0) scale(1); }
+  100%   { opacity: 1; transform: translate(80px, 0) scale(1); }
+}
+
+@keyframes drawEdge {
+  0%   { stroke-dashoffset: 80; opacity: 0; }
+  8%   { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 1; }
+}
+
+@keyframes haloPulse {
+  0%   { r: 8; opacity: 0; stroke-width: 2; }
+  50%  { opacity: 0.55; }
+  100% { r: 90; opacity: 0; stroke-width: 0.5; }
+}
+
+@keyframes captionIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.caption {
+  opacity: 0;
+  text-align: center;
+  margin-top: 32px;
+}
+
+.captionLine {
+  font-family: var(--font-display), "Iowan Old Style", Georgia, serif;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--adhd-lavender);
+  line-height: 1.45;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+.replay {
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+.replayBtn {
+  font-family: var(--font-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--adhd-purple);
+  background: transparent;
+  border: 1px solid var(--adhd-purple);
+  padding: 10px 22px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.replayBtn:hover {
+  background: var(--adhd-purple);
+  color: var(--adhd-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .playing .dotA {
+    transform: translate(-80px, 0) !important;
+    opacity: 1 !important;
+  }
+  .playing .dotB {
+    transform: translate(80px, 0) !important;
+    opacity: 1 !important;
+  }
+  .playing .edge,
+  .playing .caption,
+  .playing .replay {
+    opacity: 1 !important;
+  }
+  .playing .edge {
+    stroke-dashoffset: 0 !important;
+  }
+}
+
+@media (max-width: 680px) {
+  .svg {
+    width: 100%;
+    max-width: 440px;
+  }
+  .captionLine {
+    font-size: 18px;
+  }
+}

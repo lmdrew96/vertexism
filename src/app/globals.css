@@ -1,0 +1,318 @@
+:root {
+  --adhd-olive: #849440;
+  --adhd-teal: #244952;
+  --adhd-amber: #DFA649;
+  --adhd-purple: #88739E;
+  --adhd-sage: #8CBDB9;
+  --adhd-green: #97D181;
+  --adhd-lavender: #DBD5E2;
+  --adhd-bg: #F7F5FA;
+  --adhd-dark: #1E1830;
+
+  --purple-bright: #A893BE;
+  --purple-deep: #5D4878;
+  --ink: #1E1830;
+  --ink-soft: #3E3850;
+  --ink-muted: #6B6578;
+
+  --reading-width: 640px;
+  --stage-width: 760px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--adhd-bg);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.72;
+  font-feature-settings: "kern", "liga", "ss01";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* ---------- HEADER ---------- */
+.masthead {
+  max-width: var(--reading-width);
+  margin: 0 auto;
+  padding: 120px 24px 80px;
+  text-align: center;
+}
+
+.eyebrow {
+  font-family: var(--font-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--adhd-purple);
+  margin-bottom: 32px;
+}
+
+.title {
+  font-family: var(--font-display), "Iowan Old Style", Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(44px, 7vw, 76px);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 24px;
+  font-variation-settings: "opsz" 144;
+}
+
+.subtitle {
+  font-family: var(--font-display), "Iowan Old Style", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(18px, 2.4vw, 22px);
+  color: var(--ink-soft);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* ---------- PROSE ---------- */
+main {
+  padding-bottom: 120px;
+}
+
+.reading {
+  max-width: var(--reading-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.reading p {
+  margin-bottom: 1.3em;
+  font-size: 18px;
+  line-height: 1.75;
+  color: var(--ink);
+}
+
+.reading p.lead {
+  font-family: var(--font-display), "Iowan Old Style", Georgia, serif;
+  font-size: 21px;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin-bottom: 2em;
+}
+
+.reading h2.section-head {
+  font-family: var(--font-display), "Iowan Old Style", Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(28px, 4vw, 36px);
+  line-height: 1.2;
+  color: var(--ink);
+  margin: 80px 0 32px;
+  letter-spacing: -0.01em;
+}
+
+.reading h2.section-head .numeral {
+  font-family: var(--font-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  font-style: normal;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--adhd-purple);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.reading em {
+  font-style: italic;
+}
+
+.reading strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.reading blockquote {
+  margin: 2em 0;
+  padding-left: 28px;
+  border-left: 2px solid var(--adhd-purple);
+  font-family: var(--font-display), "Iowan Old Style", Georgia, serif;
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+/* Jumper — stylized ellipsis between prose blocks */
+.jumper {
+  max-width: var(--reading-width);
+  margin: 72px auto;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.jumper-dots {
+  display: inline-flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.jumper-dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--adhd-purple);
+  opacity: 0.5;
+}
+
+.jumper-note {
+  font-family: var(--font-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+/* ---------- STAGE (interactive moments) ---------- */
+.stage {
+  background: var(--adhd-dark);
+  color: var(--adhd-lavender);
+  padding: 88px 24px;
+  margin: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.stage::before,
+.stage::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 2px;
+  height: 20px;
+  background: var(--adhd-purple);
+  opacity: 0.4;
+  transform: translateX(-50%);
+}
+
+.stage::before {
+  top: 0;
+}
+
+.stage::after {
+  bottom: 0;
+}
+
+.stage-inner {
+  max-width: var(--stage-width);
+  margin: 0 auto;
+}
+
+.stage-label {
+  font-family: var(--font-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--adhd-purple);
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.stage-title {
+  font-family: var(--font-display), "Iowan Old Style", Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(24px, 3.2vw, 30px);
+  text-align: center;
+  color: var(--adhd-lavender);
+  margin-bottom: 48px;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+}
+
+.stage svg {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---------- END NOTE ---------- */
+.end-note {
+  max-width: var(--reading-width);
+  margin: 100px auto 0;
+  padding: 48px 24px;
+  border-top: 1px solid var(--adhd-lavender);
+  text-align: center;
+}
+
+.end-note .marker {
+  font-family: var(--font-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--adhd-purple);
+  margin-bottom: 12px;
+}
+
+.end-note p {
+  font-family: var(--font-display), "Iowan Old Style", Georgia, serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ---------- FOOTER ---------- */
+.colophon {
+  max-width: var(--reading-width);
+  margin: 40px auto 0;
+  padding: 32px 24px 60px;
+  text-align: center;
+  font-family: var(--font-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--ink-muted);
+}
+
+.colophon a {
+  color: var(--adhd-purple);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.colophon a:hover {
+  border-color: var(--adhd-purple);
+}
+
+/* Reduced motion (global; per-moment overrides live in CSS modules) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Mobile */
+@media (max-width: 680px) {
+  .masthead {
+    padding: 80px 24px 60px;
+  }
+  .stage {
+    padding: 64px 20px;
+    margin: 60px 0;
+  }
+}

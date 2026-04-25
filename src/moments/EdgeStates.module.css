@@ -1,0 +1,257 @@
+.container {
+  border-radius: 4px;
+  outline-offset: 12px;
+  transition: outline-color 0.2s ease;
+}
+
+.container:focus-visible {
+  outline: 2px solid var(--adhd-amber);
+}
+
+.container:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.svg {
+  width: 600px;
+  height: 280px;
+}
+
+.node {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.nodeCore {
+  fill: var(--adhd-purple);
+  transition: all 0.8s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.nodeRing {
+  fill: none;
+  stroke: var(--adhd-purple);
+  stroke-width: 1;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.nodePulse {
+  fill: none;
+  stroke: var(--adhd-purple);
+  stroke-width: 1.5;
+  opacity: 0;
+}
+
+.edge {
+  stroke: var(--adhd-purple);
+  stroke-width: 2;
+  fill: none;
+  transition: all 0.6s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.edgeHalo {
+  fill: none;
+  stroke: var(--adhd-amber);
+  stroke-width: 10;
+  opacity: 0;
+  filter: blur(6px);
+  transition: opacity 0.8s ease;
+}
+
+.interactive {
+  cursor: pointer;
+}
+
+/* --- STATE: LATENT --- */
+.latent .edge {
+  stroke-dasharray: 4 6;
+  opacity: 0.45;
+  stroke-width: 1.5;
+  animation: latentFlow 2.5s linear infinite;
+}
+.latent .nodeA .nodePulse {
+  animation: pulse 2.8s ease-out infinite;
+}
+.latent .nodeB .nodeCore {
+  opacity: 0.45;
+}
+
+/* --- STATE: SACRED --- */
+.sacred .edge {
+  stroke: var(--adhd-purple);
+  stroke-width: 2.5;
+  opacity: 1;
+}
+.sacred .edgeHalo {
+  opacity: 0.6;
+}
+.sacred .nodeA .nodePulse {
+  animation: pulse 3s ease-out infinite;
+  stroke: var(--adhd-amber);
+}
+.sacred .nodeB .nodePulse {
+  animation: pulse 3s ease-out 0.4s infinite;
+  stroke: var(--adhd-amber);
+}
+.sacred .nodeCore {
+  fill: var(--purple-bright);
+}
+
+/* --- STATE: RESIDUAL --- */
+.residual .edge {
+  stroke-dasharray: 2 4;
+  opacity: 0.7;
+  animation: edgeShimmer 4s ease-in-out infinite;
+}
+.residual .nodeA .nodePulse {
+  animation: pulse 3.4s ease-out infinite;
+}
+.residual .nodeB .nodeCore {
+  opacity: 0.08;
+}
+.residual .nodeB .nodeRing {
+  opacity: 0.5;
+  stroke-dasharray: 2 3;
+  stroke: var(--adhd-lavender);
+}
+
+/* --- STATE: CORRUPT --- */
+.corrupt .edge {
+  opacity: 0.9;
+  stroke: var(--adhd-amber);
+  stroke-dasharray: 8 6;
+  animation: corruptFlow 1.2s linear infinite;
+}
+.corrupt .nodeA {
+  transform: scale(1.3);
+  animation: corruptConsume 2s ease-in-out 0.8s infinite;
+}
+.corrupt .nodeA .nodeCore {
+  fill: var(--adhd-amber);
+}
+.corrupt .nodeB {
+  transform: scale(0.6);
+  animation: corruptDrain 2s ease-in-out 0.8s infinite;
+}
+.corrupt .nodeB .nodeCore {
+  fill: var(--adhd-purple);
+  opacity: 0.45;
+}
+
+@keyframes pulse {
+  0%   { r: 14; opacity: 0.7; }
+  100% { r: 42; opacity: 0; }
+}
+
+@keyframes edgeShimmer {
+  0%, 100% { opacity: 0.6; }
+  50%      { opacity: 0.25; }
+}
+
+@keyframes corruptFlow {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: 14; }
+}
+
+@keyframes corruptConsume {
+  0%, 100% { transform: scale(1.3); }
+  50%      { transform: scale(1.4); }
+}
+
+@keyframes corruptDrain {
+  0%, 100% { transform: scale(0.6); }
+  50%      { transform: scale(0.5); }
+}
+
+@keyframes latentFlow {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -10; }
+}
+
+.readout {
+  max-width: 520px;
+  margin: 40px auto 0;
+  text-align: center;
+}
+
+.stateName {
+  font-family: var(--font-display), "Iowan Old Style", Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 28px;
+  color: var(--adhd-amber);
+  margin-bottom: 6px;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+}
+
+.counter {
+  font-family: var(--font-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--adhd-purple);
+  margin-bottom: 20px;
+}
+
+.description {
+  font-size: 16px;
+  color: var(--adhd-lavender);
+  line-height: 1.7;
+  font-family: var(--font-body), system-ui, sans-serif;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.dotBtn {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--adhd-purple);
+  opacity: 0.35;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.dotBtn.active {
+  opacity: 1;
+  width: 22px;
+  border-radius: 4px;
+  background: var(--adhd-amber);
+}
+
+.dotBtn:focus-visible {
+  outline: 2px solid var(--adhd-amber);
+  outline-offset: 4px;
+}
+
+.hint {
+  font-family: var(--font-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--adhd-purple);
+  text-align: center;
+  margin-top: 24px;
+  opacity: 0.7;
+}
+
+@media (max-width: 680px) {
+  .svg {
+    width: 100%;
+    max-width: 440px;
+  }
+  .stateName {
+    font-size: 24px;
+  }
+}
