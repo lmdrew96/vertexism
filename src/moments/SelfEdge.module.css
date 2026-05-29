@@ -1,0 +1,82 @@
+.svg {
+  width: 680px;
+  height: 460px;
+}
+
+/* The corrupt node + its edge are positioned imperatively (a <line>'s endpoints are
+   not CSS-animatable), so this module only carries static appearance — colors, fonts,
+   line caps. Geometry and the timeline live in SelfEdge.tsx. */
+
+.sacredEdge {
+  stroke: var(--adhd-purple);
+  stroke-width: 2;
+  stroke-linecap: round;
+  fill: none;
+}
+
+.corruptEdge {
+  stroke: #9b8aa8; /* drained grey-mauve — corruption is colorless, NOT amber */
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  fill: none;
+}
+
+.selfRing {
+  fill: none;
+  stroke: var(--adhd-amber); /* amber is reserved for the sacred self-ring */
+  stroke-width: 3;
+}
+
+.selfNode {
+  fill: var(--adhd-bg);
+}
+
+.sacredNode {
+  fill: var(--adhd-purple);
+}
+
+.corruptNode {
+  fill: #9b8aa8;
+}
+
+.caption {
+  font-family: var(--font-display), "Iowan Old Style", Georgia, serif;
+  font-style: italic;
+  font-size: 19px;
+  fill: var(--adhd-lavender);
+}
+
+.replay {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+.replayBtn {
+  font-family: var(--font-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--adhd-purple);
+  background: transparent;
+  border: 1px solid var(--adhd-purple);
+  padding: 10px 22px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.replayBtn:hover {
+  background: var(--adhd-purple);
+  color: var(--adhd-dark);
+}
+
+@media (max-width: 680px) {
+  .svg {
+    width: 100%;
+    max-width: 440px;
+  }
+  .caption {
+    font-size: 16px;
+  }
+}

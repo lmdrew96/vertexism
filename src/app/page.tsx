@@ -4,6 +4,7 @@ import EndNote from "@/components/EndNote";
 import Colophon from "@/components/Colophon";
 import OrbitalEncounter from "@/moments/OrbitalEncounter";
 import EdgeStates from "@/moments/EdgeStates";
+import SelfEdge from "@/moments/SelfEdge";
 import SectionI from "@/sections/SectionI";
 import SectionIV from "@/sections/SectionIV";
 import FourStatesProse from "@/sections/FourStatesProse";
@@ -19,6 +20,7 @@ const Page = () => {
         <SectionIV />
         <EdgeStates />
         <FourStatesProse />
+        <SelfEdge />
         <EndNote />
       </main>
       <Colophon />

@@ -1,0 +1,163 @@
+<div style="padding:1rem 0;">
+<h2 class="sr-only">Animation: a corrupt node feeds off the self node along a fixed-angle edge, growing as it drains; it lunges inward along that same line, a self-edge ring snaps out, it recoils back along the line, then the edge severs and the ring settles into a quiet pulsing glow.</h2>
+
+<div style="background:#1E1830;border-radius:16px;padding:0;overflow:hidden;position:relative;">
+  <svg id="seSvg" width="100%" viewBox="0 0 680 460" role="img" style="display:block;">
+    <title>A fixed-angle corrupt edge lunges inward, the self-edge snaps out, it recoils</title>
+    <desc>A central self node connected to three sacred nodes and one corrupt node feeding through an edge at a fixed angle. The corrupt node slides inward along that same line and lunges; a ring snaps outward from the self node; the corrupt node recoils back along the line; the edge severs and the ring settles into a slow pulsing glow.</desc>
+
+    <line id="edgeSacred1" x1="340" y1="230" x2="150" y2="120" stroke="#88739E" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+    <line id="edgeSacred2" x1="340" y1="230" x2="180" y2="350" stroke="#88739E" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+    <line id="edgeSacred3" x1="340" y1="230" x2="520" y2="120" stroke="#88739E" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+
+    <line id="edgeCorrupt" x1="340" y1="230" x2="558" y2="350" stroke="#9B8AA8" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="7 6" opacity="0.9"/>
+
+    <circle id="selfRing" cx="340" cy="230" r="0" fill="none" stroke="#DFA649" stroke-width="3" opacity="0"/>
+    <circle cx="340" cy="230" r="15" fill="#F7F5FA"/>
+
+    <circle class="nodeSacred" cx="150" cy="120" r="10" fill="#88739E"/>
+    <circle class="nodeSacred" cx="180" cy="350" r="10" fill="#88739E"/>
+    <circle class="nodeSacred" cx="520" cy="120" r="10" fill="#88739E"/>
+
+    <circle id="nodeCorrupt" cx="558" cy="350" r="10" fill="#9B8AA8"/>
+
+    <text id="caption" x="340" y="432" text-anchor="middle" fill="#DBD5E2" style="font-family:Georgia,serif;font-style:italic;font-size:19px;opacity:0;">The self-edge outranks any corrupt edge.</text>
+  </svg>
+
+  <button id="seReplay" aria-label="Replay animation" style="position:absolute;top:14px;right:14px;background:rgba(247,245,250,0.1);border:0.5px solid rgba(247,245,250,0.3);color:#F7F5FA;font-family:system-ui,sans-serif;font-size:13px;padding:6px 14px;border-radius:9999px;cursor:pointer;">Replay</button>
+</div>
+</div>
+
+<script>
+(function(){
+  var ring=document.getElementById('selfRing');
+  var cEdge=document.getElementById('edgeCorrupt');
+  var cNode=document.getElementById('nodeCorrupt');
+  var cap=document.getElementById('caption');
+  var sEdges=[document.getElementById('edgeSacred1'),document.getElementById('edgeSacred2'),document.getElementById('edgeSacred3')];
+  var btn=document.getElementById('seReplay');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var cx=340, cy=230;
+  var ang=Math.atan2(350-cy, 558-cx);    
+  var ux=Math.cos(ang), uy=Math.sin(ang); 
+  function pt(d){ return [cx+ux*d, cy+uy*d]; }
+  var dRest=248, dLunge=66, dBounce=210, dGone=320;
+  var timers=[], pulseTimer=null, drainTimer=null, raf=null, curD=dRest;
+  function cancelRaf(){ if(raf){cancelAnimationFrame(raf);raf=null;} }
+  function clearAll(){timers.forEach(clearTimeout);timers=[];if(pulseTimer){clearInterval(pulseTimer);pulseTimer=null;}if(drainTimer){clearInterval(drainTimer);drainTimer=null;}cancelRaf();}
+  function at(ms,fn){timers.push(setTimeout(fn,ms));}
+  function place(d){
+    var p=pt(d);
+    cNode.setAttribute('cx',p[0]);cNode.setAttribute('cy',p[1]);
+    cEdge.setAttribute('x2',p[0]);cEdge.setAttribute('y2',p[1]);
+  }
+  // A <line>'s x1/y1/x2/y2 are NOT CSS-animatable, so a CSS transition on them is a
+  // no-op (the endpoint snaps while the node's cx/cy glides). Instead we drive the
+  // corrupt node AND its edge from ONE rAF clock: place(d) sets both every frame, so
+  // the edge stays welded to the node through every move — connected by construction.
+  var EASE={
+    lunge: function(t){ return t*t; },        // ease-in: the grab accelerates inward
+    fall:  function(t){ return t*t; },        // ease-in: the severed node falls away
+    bounce:function(t){ var c1=1.70158, c3=c1+1, u=t-1; return 1+c3*u*u*u+c1*u*u; } // easeOutBack: spring recoil overshoot
+  };
+  function tween(toD, dur, easeName, done){
+    cancelRaf();
+    var fromD=curD, ease=EASE[easeName]||function(t){return t;}, ms=dur*1000, t0=null;
+    function frame(ts){
+      if(t0===null) t0=ts;
+      var p=Math.min(1,(ts-t0)/ms);
+      curD=fromD+(toD-fromD)*ease(p);
+      place(curD);
+      if(p<1){ raf=requestAnimationFrame(frame); }
+      else { raf=null; curD=toD; place(curD); if(done) done(); }
+    }
+    raf=requestAnimationFrame(frame);
+  }
+  function reset(){
+    clearAll();
+    ring.style.transition='none';ring.setAttribute('r','0');ring.setAttribute('opacity','0');ring.setAttribute('stroke-width','3');
+    cNode.style.transition='none';cNode.setAttribute('opacity','1');cNode.setAttribute('r','10');
+    cEdge.style.transition='none';cEdge.setAttribute('opacity','0.9');cEdge.setAttribute('stroke-dashoffset','0');
+    curD=dRest;place(dRest);
+    cap.style.transition='none';cap.style.opacity='0';
+    sEdges.forEach(function(e){e.style.transition='none';e.setAttribute('opacity','0.85');e.setAttribute('stroke-width','2');});
+  }
+  function startPulse(){
+    var on=false;
+    pulseTimer=setInterval(function(){
+      on=!on;
+      ring.style.transition='opacity 1.6s ease-in-out, r 1.6s ease-in-out';
+      ring.setAttribute('opacity', on? '0.34':'0.20');
+      ring.setAttribute('r', on? '40':'37');
+    },1600);
+  }
+  function moveTo(d, dur, easeName){
+    // kill any CSS transition that would fight the per-frame setAttribute, then tween
+    cNode.style.transition='none';
+    cEdge.style.transition='none';
+    tween(d, dur, easeName);
+  }
+  function play(){
+    reset();
+    if(reduce){
+      place(dBounce);cNode.setAttribute('opacity','0.15');cNode.setAttribute('r','14');cEdge.setAttribute('opacity','0.07');
+      ring.setAttribute('r','38');ring.setAttribute('opacity','0.30');
+      sEdges.forEach(function(e){e.setAttribute('opacity','1');});
+      cap.style.opacity='1';return;
+    }
+
+    var drainStep=0, fed=10, offset=0;
+    drainTimer=setInterval(function(){
+      drainStep++;
+      offset+=13; if(offset>=84) offset-=84;
+      cEdge.style.transition='stroke-dashoffset 0.9s linear';
+      cEdge.setAttribute('stroke-dashoffset', String(offset));
+      fed+=2.2;
+      cNode.style.transition='r 0.9s ease-in-out';
+      cNode.setAttribute('r', String(fed));
+    },900);
+
+    at(2650,function(){
+      if(drainTimer){clearInterval(drainTimer);drainTimer=null;}
+      cEdge.style.transition='stroke-dashoffset 0.15s linear';
+      cEdge.setAttribute('stroke-dashoffset','0');
+    });
+
+    at(2820,function(){ moveTo(dLunge, 0.34, 'lunge'); });
+
+    at(3080,function(){
+      ring.style.transition='r 0.26s cubic-bezier(.2,.9,.3,1.5), opacity 0.18s ease-out';
+      ring.setAttribute('r','48');ring.setAttribute('opacity','1');
+    });
+
+    at(3180,function(){ moveTo(dBounce, 0.5, 'bounce'); });
+
+    at(3400,function(){
+      ring.style.transition='r 0.5s cubic-bezier(.34,1.4,.64,1)';
+      ring.setAttribute('r','44');
+    });
+
+    at(3720,function(){
+      // fade opacity via CSS (opacity IS animatable); drive position via the rAF clock
+      // so the edge stays welded to the node as it falls away and dims out.
+      cEdge.style.transition='opacity 0.55s ease-out';cEdge.setAttribute('opacity','0.06');
+      cNode.style.transition='opacity 0.9s ease-out';cNode.setAttribute('opacity','0.10');
+      tween(dGone, 0.9, 'fall');
+    });
+
+    at(3920,function(){
+      sEdges.forEach(function(e){e.style.transition='opacity 0.7s ease-out, stroke-width 0.7s ease-out';e.setAttribute('opacity','1');e.setAttribute('stroke-width','2.4');});
+    });
+
+    at(4220,function(){
+      ring.style.transition='r 0.9s ease-in-out, opacity 0.9s ease-in-out';
+      ring.setAttribute('r','38');ring.setAttribute('opacity','0.28');
+    });
+
+    at(5120,function(){cap.style.transition='opacity 1s ease-in';cap.style.opacity='1';startPulse();});
+  }
+  btn.addEventListener('click',play);
+  play();
+})();
+</script>
